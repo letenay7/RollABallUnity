@@ -46,14 +46,27 @@ public class PayerController : MonoBehaviour
             if (count >= 7) 
             {
                 winTextObject.SetActive(true);
+                winTextObject.GetComponent<TextMeshProUGUI>().text = "You Win!";
+                Destroy(GameObject.FindGameObjectWithTag("Enemy"));
+
 
             }
         }
     }
 
-     void SetCountText() 
+    void SetCountText() 
     {
         countText.text =  "Score = " + count.ToString();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(gameObject); 
+            winTextObject.gameObject.SetActive(true);
+            winTextObject.GetComponent<TextMeshProUGUI>().text = "You Lose!";
+        }
     }
 
 }
